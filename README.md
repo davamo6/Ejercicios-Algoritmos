@@ -1,8 +1,33 @@
-# Soluciones a los problemas propuestos del tema 2 (diseño de algoritmos)
+# Ejercicios de algoritmos y estructuras de datos
 
-Las soluciones a los ejercicios del 2.1 al 2.10 están en forma de código, cada una en el paquete correspondiente.
+Conjunto de ejercicios de diseño de algoritmos y estructuras de datos,
+tema que se imparte tanto en la asignatura Algoritmos y Estructuras de
+Datos (ALED) del Grado en Ingeniería Biomédica como en Análisis y
+Diseño de Software (ADSW) del Grado en Ingeniería de Tecnologías y
+Servicios de Telecomunicación.
 
-Las soluciones a los ejercicios del 3.1 al 3.10 aparecen a continuación.
+Este repositorio contiene las **soluciones** a los ejercicios. Las
+soluciones a los ejercicios del 2.1 al 2.10 están en forma de código,
+cada una en su paquete correspondiente. Las soluciones a los
+ejercicios del 3.1 al 3.10 aparecen a continuación. Intenta resolver
+cada ejercicio por tu cuenta antes de consultar el código o las
+respuestas; úsalos solo para comprobar tu propia solución, no como
+punto de partida.
+
+## Cómo importar el proyecto
+
+Clona este repositorio e impórtalo en Eclipse como proyecto existente
+(`.project` y `.classpath` ya están incluidos).
+
+## Documentación
+
+Los enunciados están en [`docs/Ejercicios-Algoritmos_Estructuras_Datos.pdf`](docs/Ejercicios-Algoritmos_Estructuras_Datos.pdf),
+generado automáticamente a partir de su fuente LaTeX en Overleaf.
+
+## Licencia
+
+Este proyecto se distribuye bajo licencia MIT. Consulta
+[`LICENSE.md`](LICENSE.md).
 
 ## 3.1. Variable contador
 

@@ -31,7 +31,9 @@ public class ElementoHTML {
 		int contador = 0;
 
 		// Comprobar si el elemento actual coincide
-		if (elemento.getTag().equals(tagBuscado)) {
+		// El tag buscado nunca es null, así que la comparación en este orden
+		// tolera elementos sin tag
+		if (tagBuscado.equals(elemento.getTag())) {
 			contador = 1;
 		}
 

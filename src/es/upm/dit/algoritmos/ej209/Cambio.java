@@ -7,8 +7,14 @@ public class Cambio {
 		// 0->1, 1->2, 2->5
 		// Así podemos reutilizar este array con otros tipos de monedas
 		int[] valores = { 1, 2, 5 };
-		// Llamada al auxiliar empezando por la moneda más grande (índice 2)
-		return contarAux(objetivo, monedas, valores, 2);
+
+		// Sin un recuento por cada tipo de moneda no se puede calcular nada
+		if (monedas == null || monedas.length < valores.length) {
+			return 0;
+		}
+
+		// Llamada al auxiliar empezando por la moneda más grande
+		return contarAux(objetivo, monedas, valores, valores.length - 1);
 	}
 
 	// Para evitar contar permutaciones (ej: 1+2 y 2+1) como distintas, usamos un

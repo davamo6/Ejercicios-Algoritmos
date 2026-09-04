@@ -29,10 +29,13 @@ public class Nodo {
 	}
 
 	public static boolean esBST(Nodo nodo) {
-		return esBSTAux(nodo, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		// La raíz no tiene antecesores, así que no está acotada por ningún lado
+		return esBSTAux(nodo, null, null);
 	}
 
-	private static boolean esBSTAux(Nodo nodo, int min, int max) {
+	// Los límites son los nodos antecesores que acotan el valor: min por debajo y
+	// max por arriba. Un límite null significa que ese lado no está acotado
+	private static boolean esBSTAux(Nodo nodo, Nodo min, Nodo max) {
 		// Caso base: llegar a una hoja (null) es válido
 		if (nodo == null) {
 			return true;
@@ -40,14 +43,17 @@ public class Nodo {
 
 		// Validación del nodo actual
 		// Debe ser estrictamente mayor que min y menor que max
-		if (nodo.valor <= min || nodo.valor >= max) {
+		if (min != null && nodo.valor <= min.valor) {
+			return false;
+		}
+		if (max != null && nodo.valor >= max.valor) {
 			return false;
 		}
 
 		// Paso recursivo:
 		// Subárbol izquierdo: debe ser menor que el nodo actual (nuevo max)
-		// Subárbol dererecho: debe ser mayor que el nodo actual (nuevo min)
-		return esBSTAux(nodo.izq, min, nodo.valor) && esBSTAux(nodo.der, nodo.valor, max);
+		// Subárbol derecho: debe ser mayor que el nodo actual (nuevo min)
+		return esBSTAux(nodo.izq, min, nodo) && esBSTAux(nodo.der, nodo, max);
 	}
 
 }

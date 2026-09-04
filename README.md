@@ -26,10 +26,16 @@ generado automáticamente a partir de su fuente LaTeX en Overleaf.
 
 ## Licencia
 
-Este proyecto se distribuye bajo licencia MIT. Consulta
+El código fuente (`src/`) se distribuye bajo licencia MIT. Consulta
 [`LICENSE.md`](LICENSE.md).
 
-## 3.1. Variable contador
+Los enunciados y las respuestas (`docs/` y este README) se distribuyen
+bajo licencia CC BY-NC-SA 4.0. Consulta
+[`LICENSE-DOCS.md`](LICENSE-DOCS.md).
+
+---
+
+### 3.1. Variable contador
 
 * **Valor final en función de N:**
     El bucle interno se ejecuta 0 veces cuando $i=0$, 1 vez cuando $i=1$, 2 veces cuando $i=2$, y así sucesivamente hasta $N-1$.
@@ -41,7 +47,9 @@ Este proyecto se distribuye bajo licencia MIT. Consulta
 * **Complejidad computacional:**
     Al dominar el término cuadrático $N^2$ en la fórmula anterior, la complejidad es **$O(N^2)$** (Cuadrática).
 
-## 3.2. Método misterioso
+---
+
+### 3.2. Método misterioso (I)
 
 * **Estado del array tras $i=2$:**
     Array inicial: `{5, 2, 4, 6, 1, 3}`.
@@ -61,11 +69,11 @@ Este proyecto se distribuye bajo licencia MIT. Consulta
 ### 3.3. Bucles anidados (I)
 
 * **Valor final si $n=5$:**
-    Suma: $0 (i=0) + 1 (i=1) + 2 (i=2) + 3 (i=3) + 4 (i=4) = 10$.
+    Suma: $5 (i=0) + 4 (i=1) + 3 (i=2) + 2 (i=3) + 1 (i=4) = 15$.
 
 * **Ejecuciones en función de n:**
-    Es la suma aritmética de $0$ a $n-1$:
-    $$\sum_{i=0}^{n-1} i = \frac{n(n-1)}{2}$$
+    El bucle interno arranca en $i$ y llega hasta $n-1$, así que se ejecuta $n-i$ veces:
+    $$\sum_{i=0}^{n-1} (n - i) = n + (n-1) + ... + 1 = \frac{n(n+1)}{2}$$
 
 * **Complejidad:**
     La complejidad es, de hecho, el número de ejecuciones de `contador++` en función de $n$: **$O(n^2)$**.
@@ -97,7 +105,7 @@ Este proyecto se distribuye bajo licencia MIT. Consulta
     * Total aproximado: $10 \times 4 = 40$ veces.
 
 * **Relación matemática:**
-    El número de pasos del bucle interno es igual a $\log_2 n$, ya que $j$ crece exponencialmente ($2^k$) hasta llegar a $n$.
+    El número de pasos del bucle interno es igual a $\log_2 n$ (redondeando hacia arriba), ya que $j$ crece exponencialmente ($2^k$) hasta llegar a $n$. Para $n=10$: $\log_2 10 \approx 3,32$, es decir, 4 pasos.
 
 * **Complejidad:**
     El externo es $n$ y el interno es $\log n$. Al estar anidados se multiplican. **$O(n \cdot \log n)$**.
@@ -151,12 +159,12 @@ Este proyecto se distribuye bajo licencia MIT. Consulta
 ### 3.10. Complejidad de método recursivo
 
 * **Llamadas para $n=3$:**
-    * $n=3$: Imprime 3. Llama a (2) y (2).
-    * $n=2$ (x2 veces): Imprimen 2. Cada una llama a (1) y (1). Total 4 llamadas a $n=1$.
-    * $n=1$ (x4 veces): Imprimen 1. Cada una llama a (0) y (0). Total 8 llamadas a $n=0$.
-    * $n=0$ (x8 veces): Retornan.
-    El número de llamadas sigue una progresión geométrica. Aproximadamente $2^0 + 2^1 + 2^2 + 2^3...$
-    Total llamadas (sin contar las nulas): $1 + 2 + 4 = 7$ llamadas activas (o 15 si cuentas las llamadas base a 0).
+    * $n=3$: 1 llamada. Imprime 3 y llama a (2) y (2).
+    * $n=2$: 2 llamadas. Imprimen 2 y llaman a (1) y (1). Total 4 llamadas a $n=1$.
+    * $n=1$: 4 llamadas. Imprimen 1 y llaman a (0) y (0). Total 8 llamadas a $n=0$.
+    * $n=0$: 8 llamadas. Solo comprueban la condición de parada y retornan.
+    Cada nivel duplica el número de llamadas, así que se trata de una progresión geométrica: $2^0 + 2^1 + 2^2 + 2^3 = 2^{n+1} - 1$.
+    **Total: 15 llamadas**, de las cuales 7 hacen trabajo (imprimen y vuelven a llamar) y 8 son casos base.
 
 * **Complejidad:**
     Cada paso duplica el número de operaciones. **$O(2^n)$** (Exponencial).

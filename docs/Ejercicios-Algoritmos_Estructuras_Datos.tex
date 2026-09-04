@@ -1,0 +1,590 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{epstopdf}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{cancel}
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,calc,shapes.geometric}
+\graphicspath{ {images/}{Exercises/images/}{Header/} }
+\providetoggle{showAnswers}
+\providetoggle{eachProblemInOnePage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{colortbl} 
+\usepackage{dashrule} 
+\usepackage{fancyhdr}
+\usepackage[bmargin=2cm,footnotesep=1cm,tmargin=2cm]{geometry} 
+\usepackage[pdftex,colorlinks,a4paper,backref,bookmarks=true,bookmarksnumbered=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage[section]{placeins}
+\usepackage[labelsep=quad,indention=10pt]{subfig}
+\usepackage[spanish,shadow,textsize=small]{todonotes}
+\usepackage{wrapfig}
+\usepackage{karnaugh-map}
+
+% Código fuente
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Minted
+\usepackage{minted}
+% Optional: Set a default style. 'manni' is a light, clean style.
+% Other popular styles include 'tango', 'monokai', 'solarized-light'.
+\usemintedstyle{sas}
+
+% Big O
+\newcommand{\bigO}{\mathcal{O}}
+
+% Cajas de respuestas
+\newcommand{\overflowbox}[1]{%
+    \enlargethispage{\textheight}
+    \nobreak
+    \noindent
+    \fbox{%
+        \parbox{\textwidth}{%
+            \rule{0pt}{#1}%
+        }%
+    }%
+}
+
+% Caja sombreado
+% comando \sombreado{Título}{Texto}
+\definecolor{shadecolor}{rgb}{0.9,0.9,0.9}
+\newcommand{\sombreado}[2]{
+  \begin{shaded}
+    \begin{center} \emph{\textsc{#1}} \end{center}
+    \noindent #2\\
+  \end{shaded}
+}
+
+
+% PARAMETROS CONFIGURABLES
+\newcommand{\asig}{Algoritmos y Estructuras de Datos}
+\newcommand{\grado}{Grado en Ingeniería Biomédica}
+\newcommand{\ceu}{Universidad Politécnica de Madrid}
+\newcommand{\autor}{Rodrigo García Carmona}
+\newcommand{\email}{\href{mailto:rodrigo.garcia@upm.es}{rodrigo.garcia@upm.es}}
+\newcommand{\titulo}{Diseño de algoritmos - Ejercicios}
+
+% PDF
+\hypersetup{
+  pdfauthor={\autor},
+  pdftitle={\titulo},
+  pdfsubject={\asig, \grado, \ceu}, 
+  pdftoolbar=true,
+  pdfmenubar=true,
+  pdffitwindow=true,
+  pdfnewwindow=true
+}
+
+% ENCABEZADO
+\pagestyle{fancy}%
+  \renewcommand{\headrulewidth}{0.1pt}
+  \renewcommand{\footrulewidth}{0.1pt}
+  \fancyhf{}
+  \fancyhead[L]{\includegraphics[width=8mm]{templates/ETSIT-UPM.eps}}
+  \fancyhead[C]{\small{\asig}\\\small{\grado}}
+  \fancyfoot[L]{}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{}
+
+% CONTENIDO
+\begin{document}
+
+\input{titlepage.tex}
+
+\section{Introducción}
+
+A continuación encontrará los enunciados de una serie de ejercicios que le servirán para practicar. Para cada ejercicio, aunque no se especifique, no deje de tener en cuenta que:
+
+\begin{itemize}
+    \item Debe considerar los casos límite o problemáticos como arrays vacíos, valores \code{null}, índices fuera de rango...
+    \item El código debe ser eficiente: si es posible evitar un bucle, ahorrar vueltas dentro de un bucle o reducir el número de líneas a ejecutar, es mejor hacerlo.
+    \item Lo programado debe ser legible, intentando que el código sea fácil de entender y acompañándolo de comentarios completos pero concisos.
+    \item Puede organizar su código en paquetes y clases, así como reutilizar métodos ya creados. Un buen método debería caber en una única pantalla.
+\end{itemize}
+
+Además, no deje de probar su código. No se limite a ver que compila o que funciona con una entrada de datos trivial.
+
+\section{Ejercicios de recursividad}
+
+En la mayoría de los ejercicios de esta sección se proporciona una estructura de datos en Java. En todos los casos debe implementar un método recursivo estático.
+
+\subsection{Sistema de archivos}
+\label{arbolNArio}
+
+Se ha diseñado una estructura para modelar un sistema de archivos simple:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+// Representa un archivo con un tamaño específico
+public class Archivo {
+    private String nombre;
+    private double pesoMB; // Tamaño en Megabytes
+
+    public Archivo(String nombre, double peso) { ... }
+    public double getPesoMB() { return this.pesoMB; }
+}
+
+// Representa una carpeta que puede contener archivos y otras subcarpetas
+public class Carpeta {
+    private String nombre;
+    private List<Archivo> archivos;   // Archivos directos en esta carpeta
+    private List<Carpeta> subcarpetas; // Carpetas dentro de esta carpeta
+
+    public Carpeta(String nombre) { ... }
+    public List<Archivo> getArchivos() { return this.archivos; }
+    public List<Carpeta> getSubcarpetas() { return this.subcarpetas; }
+}
+\end{minted}
+
+Implemente el método recursivo \code{calcularPesoTotal}: Este método debe devolver la suma total del peso (en MB) de una \code{Carpeta} y todo su contenido (archivos directos y archivos dentro de subcarpetas, recursivamente).
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static double calcularPesoTotal(Carpeta inicio) {}
+\end{minted}
+
+\subsection{Jerarquía de una empresa}
+
+Se utiliza una estructura de árbol para representar el organigrama de una empresa:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class Empleado {
+    private String nombre;
+    private double salario;
+    private List<Empleado> subordinados; // Lista de empleados a su cargo
+
+    public Empleado(String nombre, double salario) { ... }
+    public double getSalario() { return this.salario; }
+    public List<Empleado> getSubordinados() { return this.subordinados; }
+}
+\end{minted}
+
+Implemente el método recursivo \code{presupuestoEquipo}: Este método debe calcular el coste total de salarios de un equipo, incluyendo el salario del \code{Empleado} pasado como parámetro y el de todos sus subordinados (directos e indirectos).
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static double presupuestoEquipo(Empleado jefe) {}
+\end{minted}
+
+\subsection{Árbol de habilidades de un videojuego}
+
+Un videojuego organiza las habilidades de sus personajes en un árbol de dependencias, de tal manera que para poder desbloquear una habilidad primero se deben tener las anteriores, además de una serie de puntos.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class Habilidad {
+    private String id;
+    private int costePuntos; // Coste para desbloquear esta habilidad
+    private List<Habilidad> desbloqueables; // Habilidades que dependen de esta
+
+    public int getCoste() { return this.costePuntos; }
+    public List<Habilidad> getDesbloqueables() { return this.desbloqueables; }
+}
+\end{minted}
+
+Implemente el método recursivo \code{costeRamaCompleta}, que calcula cuántos puntos totales hacen falta para desbloquear la habilidad raíz y todas las habilidades que descienden de ella en el árbol (es decir, la rama completa).
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static int costeRamaCompleta(Skill raiz) {}
+\end{minted}
+
+\subsection{Página web}
+
+Se modela una página web como un árbol de elementos, siguiendo el modelo DOM (\textit{Document Object Model}), el más común:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class ElementoHTML {
+    private String tag; // Ejemplo: "div", "p", "img"
+    private List<ElementoHTML> hijos;
+
+    public String getTag() { return this.tag; }
+    public List<ElementoHTML> getHijos() { return this.hijos; }
+}
+\end{minted}
+
+Implemente el método recursivo \code{contarEtiquetas}. Este método devuelve un entero indicando cuántas veces aparece una etiqueta específica (\code{tagBuscado}) dentro del árbol que comienza en \code{elemento}.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static int contarEtiquetas(ElementoHTML elemento, String tagBuscado) {}
+\end{minted}
+
+\subsection{Cadena de suministros}
+
+Un producto se fabrica a partir de piezas, que a su vez pueden estar formadas por otras piezas.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class Pieza {
+    private String nombre;
+    private boolean esDefectuosa;
+    private List<Pieza> componentes; // Piezas necesarias para montar esta
+
+    public boolean isDefectuosa() { return this.esDefectuosa; }
+    public List<Pieza> getComponentes() { return this.componentes; }
+}
+\end{minted}
+
+Implemente el método recursivo \code{contieneDefectos}: Devuelve \code{true} si la \code{piezaPrincipal} o cualquiera de sus componentes (en cualquier nivel de profundidad) está marcado como defectuoso. Si todas las piezas están bien, devuelve \code{false}.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static boolean contieneDefectos(Pieza piezaPrincipal) {}
+\end{minted}
+
+\subsection{Palíndromo recursivo}
+
+Escriba un método recursivo \code{esPalindromo(String texto)} que devuelva \code{true} si la cadena \code{texto} es un palíndromo (se lee igual al derecho y al revés) y \code{false} en caso contrario. Asuma que el texto no contiene espacios en blanco y que todos los caracteres están en minúsculas.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static boolean esPalindromo(String texto) {}
+\end{minted}
+
+\textbf{Si necesita ayuda:} El caso base es una cadena de longitud 0 o 1. El caso recursivo compara el primer y último carácter y llama a la función con la subcadena interior.
+
+\subsection{Validación de un árbol binario}
+
+Dado un árbol binario, valide si cumple con la propiedad de un BST (\textit{Binary Search Tree}, árbol binario de búsqueda): en cada nodo, todos los valores de los nodos del subárbol izquierdo son menores al del nodo, y todos los del derecho son mayores. Implemente la función auxiliar recursiva que mantiene un rango de valores válidos (\code{min} y \code{max}): \code{esBSTaux}.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class Nodo { int valor; Nodo izq, der; }
+
+public static boolean esBST(Nodo nodo) {
+    return esBSTAux(nodo, Integer.MIN_VALUE, Integer.MAX_VALUE);
+}
+
+private static boolean esBSTAux(Nodo nodo, int min, int max) {}
+\end{minted}
+
+\subsection{Invertir una lista enlazada}
+\label{enlazada}
+
+Dada una lista enlazada simple (cada nodo tiene una referencia al siguiente, pero no al anterior), definida por la clase \code{NodoLista}, implemente un método recursivo que devuelva el nodo cabecera de otra lista del mismo tiempo, con los mismos nodos, pero en orden inverso. El caso base ya se le proporciona:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public class NodoLista { int dato; NodoLista siguiente; }
+
+public static NodoLista invertirRecursivo(NodoLista actual) {
+    // Caso base: lista vacía o único elemento
+    if (actual == null || actual.siguiente == null) {
+        return actual;
+    }
+    // Paso recursivo:
+    // TODO: Complete este código
+}
+\end{minted}
+
+\subsection{¿Tengo el cambio justo?}
+
+Implemente un método recursivo que permita calcular de cuántas formas distintas se puede sumar la cantidad \code{objetivo} usando monedas de valores 1, 2 y 5. Por ejemplo, para \code{objetivo = 3} hay 2 formas: (1+1+1) y (1+2).
+
+A continuación se la proporciona la cabecera del método a implementar. En ella, \code{monedas} es un array de tamaño que 3 que contiene:
+\begin{itemize}
+    \item En la posición 0, el número de monedas de 1.
+    \item En la posición 1, el número de monedas de 2.
+    \item En la posición 2, el número de monedas de 5.
+\end{itemize}
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static int contarFormasCambio(int objetivo, int[] monedas) {}
+\end{minted}
+
+\textbf{Pista:} Los casos base son:
+\begin{itemize}
+    \item \code{objetivo == 0} (se encontró una forma),
+    \item \code{objetivo < 0} (se pasó) y
+    \item no quedan monedas.
+\end{itemize}
+
+\subsection{Fusión de listas ordenadas}
+
+La fusión de dos listas ordenadas es la base del algoritmo \textit{Merge sort}, uno de los algoritmos que se vio en clase. Dadas dos listas enlazadas simples \code{l1} y \code{l2} como las del ejercicio \ref{enlazada}, que ya están ordenadas de menor a mayor, implemente un método recursivo que devuelva una única lista ordenada fusionando ambas.
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static NodoLista fusionarListas(NodoLista l1, NodoLista l2) {}
+\end{minted}
+
+\section{Complejidad y algoritmos}
+
+Analice el código proporcionado y responda a las preguntas sobre trazado, conteo de operaciones y complejidad en notación $\bigO$.
+
+\subsection{Variable contador}
+
+Observe el comportamiento de la variable \code{contador} en el siguiente código:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+int contador = 0;
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j < i; j++) {
+        contador++;
+    }
+}
+\end{minted}
+
+\begin{itemize}
+    \item ¿Cuál será su valor final en función de \code{N}?
+    \item ¿Cuál es la complejidad computacional en notación $\bigO$ del método?
+\end{itemize}
+
+\subsection{Método misterioso (I)}
+
+Examine el siguiente método:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static void procesar(int[] datos) {
+    int n = datos.length;
+    for (int i = 1; i < n; i++) {
+        int clave = datos[i];
+        int j = i - 1;
+        while (j >= 0 && datos[j] > clave) {
+            datos[j + 1] = datos[j];
+            j = j - 1;
+        }
+        datos[j + 1] = clave;
+    }
+}
+\end{minted}
+
+\begin{itemize}
+    \item Si \code{datos = \{5, 2, 4, 6, 1, 3\}}, ¿qué contendrá el array tras finalizar la iteración en la que \code{i=2}.
+    \item ¿Qué algoritmo implementa este código?
+    \item ¿Cuál es la complejidad computacional en el peor caso y en el mejor caso? Justifique su respuesta.
+\end{itemize}
+
+\subsection{Bucles anidados (I)}
+
+Examine el siguiente fragmento de código:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static long calcular(int n) {
+    long contador = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            contador++;
+        }
+    }
+    return contador;
+}
+\end{minted}
+
+\begin{itemize}
+    \item Si \code{n=5}, ¿cuál es el valor final de \code{contador}?
+    \item ¿Cuántas veces se ejecuta la instrucción \code{contador++} en función de \code{n}? Exprese el resultado como una suma aritmética.
+    \item Deduzca la complejidad $\bigO$ del algoritmo.
+\end{itemize}
+
+\subsection{Búsqueda binaria modificada}
+
+Examine el siguiente método recursivo que opera sobre un array \textbf{ordenado}:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static int busqueda(int[] arr, int inicio, int fin, int x) {
+    if (fin < inicio) return -1;
+    int medio = inicio + (fin - inicio) / 2;
+    if (arr[medio] == x) return medio;
+    if (arr[medio] > x) 
+        return busqueda(arr, inicio, medio - 1, x);
+    return busqueda(arr, medio + 1, fin, x);
+}
+\end{minted}
+
+\begin{itemize}
+    \item Dado \code{arr = \{2, 5, 8, 12, 16, 23, 38, 56, 72, 91\}} y buscando \code{x = 23}. Indique la secuencia de valores que toma la variable \code{medio} hasta encontrar el valor.
+    \item ¿Qué ocurre si el array no está ordenado previamente?
+    \item ¿Cuál es la complejidad del algoritmo en notación $\bigO$? Justifique basándose en cómo se reduce el tamaño del problema en cada llamada recursiva.
+\end{itemize}
+
+\subsection{Bucles anidados (II)}
+
+Examine el siguiente fragmento de código:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public static void metodoLog(int n) {
+    int a = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 1; j < n; j *= 2) {
+            a++;
+        }
+    }
+}
+\end{minted}
+
+\begin{itemize}
+    \item Si \code{n = 10}, ¿cuántas veces se ejecuta la línea \code{a++} aproximadamente?
+    \item ¿Qué relación matemática tiene la variable índice \code{j} con \code{n} en el bucle interior?
+    \item Calcule la complejidad del algoritmo en notación $\bigO$. Justifique su respuesta.
+\end{itemize}
+
+\subsection{\textit{Bubble sort} optimizado}
+
+Estudie este código, una variante de un algoritmo de ordenación popular (\textit{Bubble sort}):
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+void ordenar(int[] arr) {
+    int n = arr.length;
+    boolean intercambiado;
+    for (int i = 0; i < n - 1; i++) {
+        intercambiado = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // swap temp
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                intercambiado = true;
+            }
+        }
+        if (intercambiado == false) break;
+    }
+}
+\end{minted}
+
+\begin{itemize}
+    \item Si el array de entrada ya está ordenado (\code{\{1, 2, 3, 4, 5\}}), ¿cuántas veces se ejecuta la comparación \code{arr[j]} >\space \code{arr[j+1]}?
+    \item ¿Para qué sirve la variable \code{intercambiado}?
+    \item Indique la complejidad en el mejor caso y en el peor caso. ¿Por qué son diferentes?.
+\end{itemize}
+
+\subsection{Complejidad de un árbol N-ario}
+
+Dado una estructura de árbol N-ario similar a la del ejercicio \ref{arbolNArio} (clase con una lista de hijos), ¿cuál sería la complejidad temporal de un método recursivo que recorre el árbol completo para contar el número total de nodos, si \code{N} es el número total de nodos en el árbol?
+
+\subsection{Método misterioso (II)}
+
+Analiza el siguiente método recursivo que trabaja sobre un árbol binario. ¿Qué calcula exactamente?
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public int metodoMisterioso(Node nodo) {
+  if (nodo == null) return 0;
+  int izq = metodoMisterioso(nodo.left);
+  int der = metodoMisterioso(nodo.right);
+  return 1 + Math.max(izq, der);
+}
+\end{minted}
+
+\subsection{Árbol binario degenerado}
+
+Un árbol binario es degenerado (no piense mal) cuando todos los nodos tienen un único hijo siempre en el mismo lado (por ejemplo, el derecho). En este caso, ¿cuál es la complejidad computacional en notación $\bigO$ de una búsqueda binaria sobre este árbol, en el peor de los casos? ¿Y en el mejor?
+
+\subsection{Complejidad de método recursivo}
+
+Dado el siguiente método:
+
+\begin{minted}[
+frame=lines, % Adds a frame around the code
+framesep=2mm,
+% linenos % Enables line numbers
+]{java}
+public void metodoRaro(int n) {
+    if (n <= 0) return;
+    System.out.println(n);
+    metodoRaro(n - 1);
+    metodoRaro(n - 1);
+}
+\end{minted}
+
+\begin{itemize}
+    \item ¿Cuántas llamadas a \code{metodoRaro} se hacen para \code{n=3}?
+    \item ¿Cuál es la complejidad en notación $\bigO$ en función de \code{n}? \textbf{Pista:} Fíjese en que cada paso duplica el trabajo.
+\end{itemize}
+\end{document}

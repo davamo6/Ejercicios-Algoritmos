@@ -224,7 +224,7 @@ frame=lines, % Adds a frame around the code
 framesep=2mm,
 % linenos % Enables line numbers
 ]{java}
-public static int costeRamaCompleta(Skill raiz) {}
+public static int costeRamaCompleta(Habilidad raiz) {}
 \end{minted}
 
 \subsection{Página web}
@@ -300,7 +300,7 @@ public static boolean esPalindromo(String texto) {}
 
 \subsection{Validación de un árbol binario}
 
-Dado un árbol binario, valide si cumple con la propiedad de un BST (\textit{Binary Search Tree}, árbol binario de búsqueda): en cada nodo, todos los valores de los nodos del subárbol izquierdo son menores al del nodo, y todos los del derecho son mayores. Implemente la función auxiliar recursiva que mantiene un rango de valores válidos (\code{min} y \code{max}): \code{esBSTaux}.
+Dado un árbol binario, valide si cumple con la propiedad de un BST (\textit{Binary Search Tree}, árbol binario de búsqueda): en cada nodo, todos los valores de los nodos del subárbol izquierdo son menores al del nodo, y todos los del derecho son mayores. Implemente la función auxiliar recursiva \code{esBSTAux}, que mantiene el rango de valores válidos mediante los nodos antecesores que lo acotan: \code{min} por debajo y \code{max} por arriba. Un límite a \code{null} indica que ese lado no está acotado, como ocurre en la raíz.
 
 \begin{minted}[
 frame=lines, % Adds a frame around the code
@@ -310,16 +310,16 @@ framesep=2mm,
 public class Nodo { int valor; Nodo izq, der; }
 
 public static boolean esBST(Nodo nodo) {
-    return esBSTAux(nodo, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    return esBSTAux(nodo, null, null);
 }
 
-private static boolean esBSTAux(Nodo nodo, int min, int max) {}
+private static boolean esBSTAux(Nodo nodo, Nodo min, Nodo max) {}
 \end{minted}
 
 \subsection{Invertir una lista enlazada}
 \label{enlazada}
 
-Dada una lista enlazada simple (cada nodo tiene una referencia al siguiente, pero no al anterior), definida por la clase \code{NodoLista}, implemente un método recursivo que devuelva el nodo cabecera de otra lista del mismo tiempo, con los mismos nodos, pero en orden inverso. El caso base ya se le proporciona:
+Dada una lista enlazada simple (cada nodo tiene una referencia al siguiente, pero no al anterior), definida por la clase \code{NodoLista}, implemente un método recursivo que devuelva el nodo cabecera de otra lista del mismo tipo, con los mismos nodos, pero en orden inverso. El caso base ya se le proporciona:
 
 \begin{minted}[
 frame=lines, % Adds a frame around the code
@@ -342,7 +342,7 @@ public static NodoLista invertirRecursivo(NodoLista actual) {
 
 Implemente un método recursivo que permita calcular de cuántas formas distintas se puede sumar la cantidad \code{objetivo} usando monedas de valores 1, 2 y 5. Por ejemplo, para \code{objetivo = 3} hay 2 formas: (1+1+1) y (1+2).
 
-A continuación se la proporciona la cabecera del método a implementar. En ella, \code{monedas} es un array de tamaño que 3 que contiene:
+A continuación se la proporciona la cabecera del método a implementar. En ella, \code{monedas} es un array de tamaño 3 que contiene:
 \begin{itemize}
     \item En la posición 0, el número de monedas de 1.
     \item En la posición 1, el número de monedas de 2.
@@ -426,7 +426,7 @@ public static void procesar(int[] datos) {
 \end{minted}
 
 \begin{itemize}
-    \item Si \code{datos = \{5, 2, 4, 6, 1, 3\}}, ¿qué contendrá el array tras finalizar la iteración en la que \code{i=2}.
+    \item Si \code{datos = \{5, 2, 4, 6, 1, 3\}}, ¿qué contendrá el array tras finalizar la iteración en la que \code{i=2}?
     \item ¿Qué algoritmo implementa este código?
     \item ¿Cuál es la complejidad computacional en el peor caso y en el mejor caso? Justifique su respuesta.
 \end{itemize}
@@ -443,7 +443,7 @@ framesep=2mm,
 public static long calcular(int n) {
     long contador = 0;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < i; j++) {
+        for (int j = i; j < n; j++) {
             contador++;
         }
     }
@@ -538,7 +538,7 @@ void ordenar(int[] arr) {
 \begin{itemize}
     \item Si el array de entrada ya está ordenado (\code{\{1, 2, 3, 4, 5\}}), ¿cuántas veces se ejecuta la comparación \code{arr[j]} >\space \code{arr[j+1]}?
     \item ¿Para qué sirve la variable \code{intercambiado}?
-    \item Indique la complejidad en el mejor caso y en el peor caso. ¿Por qué son diferentes?.
+    \item Indique la complejidad en el mejor caso y en el peor caso. ¿Por qué son diferentes?
 \end{itemize}
 
 \subsection{Complejidad de un árbol N-ario}

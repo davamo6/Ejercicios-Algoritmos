@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej2;
+package es.upm.dit.algoritmos.ej202;
 
 import java.util.ArrayList;
 import java.util.List;

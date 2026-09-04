@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej9;
+package es.upm.dit.algoritmos.ej209;
 
 public class Cambio {
 

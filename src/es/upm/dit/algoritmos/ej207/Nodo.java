@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej7;
+package es.upm.dit.algoritmos.ej207;
 
 public class Nodo {
 	int valor;

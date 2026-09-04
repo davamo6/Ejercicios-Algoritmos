@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej1;
+package es.upm.dit.algoritmos.ej201;
 
 //Representa un archivo con un tamaño específico
 public class Archivo {

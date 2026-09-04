@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej6;
+package es.upm.dit.algoritmos.ej206;
 
 public class Palindromo {
 

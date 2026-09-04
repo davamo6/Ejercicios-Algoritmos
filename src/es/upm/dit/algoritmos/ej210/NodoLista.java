@@ -1,4 +1,4 @@
-package es.upm.dit.aled.tema2.recursividad.ej10;
+package es.upm.dit.algoritmos.ej210;
 
 public class NodoLista {
 	int dato;

@@ -16,7 +16,7 @@ public class Carpeta {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombre; //devolvemos el nombre
 	}
 
 	public List<Archivo> getArchivos() {

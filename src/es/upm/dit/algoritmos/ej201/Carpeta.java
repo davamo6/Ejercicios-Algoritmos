@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Representa una carpeta que puede contener archivos y otras subcarpetas
-public class Carpeta {
+public class Carpeta { //atributos
 	private String nombre;
 	private List<Archivo> archivos; // Archivos directos en esta carpeta
 	private List<Carpeta> subcarpetas; // Carpetas dentro de esta carpeta

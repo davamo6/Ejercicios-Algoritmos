@@ -15,7 +15,7 @@ public class NodoLista {
 	public void setSiguiente(NodoLista siguiente) {
 		this.siguiente = siguiente;
 	}
-
+        //Getter del atributo dato
 	public int getDato() {
 		return dato;
 	}

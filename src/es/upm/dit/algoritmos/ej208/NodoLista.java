@@ -5,7 +5,7 @@ public class NodoLista {
 	NodoLista siguiente;
 
 	public NodoLista(int dato) {
-		this.dato = dato;
+		this.dato = dato; 
 	}
 
 	public NodoLista getSiguiente() {

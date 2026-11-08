@@ -39,6 +39,6 @@ public class NodoLista {
 		actual.siguiente = null;
 
 		return nuevaCabecera;
-	}
+	} //
 
 }

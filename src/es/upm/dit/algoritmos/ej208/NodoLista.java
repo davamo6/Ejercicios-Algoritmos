@@ -33,7 +33,7 @@ public class NodoLista {
 		// Lógica de inversión:
 		// actual.siguiente es el nodo que va después del actual.
 		// Hacemos que ese nodo apunte hacia atrás (a 'actual').
-		actual.siguiente.siguiente = actual;
+		actual.siguiente.siguiente = actual; 
 
 		// El actual pasa a ser el último (por ahora), así que apunta a null
 		actual.siguiente = null;

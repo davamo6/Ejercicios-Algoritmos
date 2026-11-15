@@ -33,7 +33,7 @@ public class NodoLista {
 			// Su siguiente será el resultado de fusionar el resto de l1 con l2
 			l1.siguiente = fusionarListas(l1.siguiente, l2);
 			return l1;
-		} else {
+		} else { 
 			// l2 es menor
 			l2.siguiente = fusionarListas(l1, l2.siguiente);
 			return l2;
